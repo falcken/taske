@@ -1,5 +1,5 @@
-void setup() {
-}
+JSONArray json;
 
-void draw() {
+void setup() {
+  json = loadJSONArray("data.json");
 }
