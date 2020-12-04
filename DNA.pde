@@ -9,19 +9,19 @@ class DNA {
   DNA() {
     // LOAD POSSIBLE ITEMS
     for (int i = 0; i < json.size(); i++) {
-      JSONObject item = json.getJSONObject(i); 
-      
+      JSONObject item = json.getJSONObject(i);
+
       String name = item.getString("Navn");
       int weight = parseInt(item.getString("Vaegt"));
       int price = parseInt(item.getString("Kroner"));
-      
+
       possibleItems.add(new Item(weight, price, name));
       for (int u = 0; u < possibleItems.size(); u++){
         maxvalue += possibleItems.get(i).price;
       }
       //println("added: "+weight, price, name);
     }
-    
+
     // FILL DNA WITH RANDOM ITEMS
     int n = int(random(possibleItems.size()));
     for (int i = 0; i < n; i++){
@@ -31,13 +31,13 @@ class DNA {
       genes.add(u);
       weight = weight + int(u.weight);
       value = value + int(u.price);
-      
+
       // REMOVE ITEM AFTEN PUT IN BAG OR IF IT WONT FIT
       possibleItems.remove(random);
     }
-    
+
   }
-  
+
   void fitness(){
     v = float(value)/maxvalue;
     if (weight < 5000){
@@ -47,30 +47,36 @@ class DNA {
     }
     
   }
-  
+
   void mutate(float mutationRate){
-      if(random(1) < mutationRate){
-      //genes.clear;
+    for (int i = 0; i < genes.size(); i++){
+      if (random(1) > mutationRate){
+        int random = int(random(possibleMutations.size()));
+        genes.get(i) = possibleMutations.get(random);
+      }
     }
   }
-  
+
     // The function receives one argument (DNA) and returns DNA.
   /*DNA crossover(DNA partner) {
 
-    // The child is a new instance of DNA.
-    // Note that the DNA is generated randomly in the constructor,
-    // but we will overwrite it below with DNA from parents.
     DNA child = new DNA();
 
-    // Picking a random “midpoint” in the genes array
-    int midpoint = int(random(genes.length));
+    int midpoint = int(random(genes.size()));
 
-    for (int i = 0; i < genes.length; i++) {
-      //[full] Before midpoint copy genes from one parent, after midpoint copy genes from the other parent
-      if (i > midpoint) child.genes[i] = genes[i];
-      else child.genes[i] = partner.genes[i];
-      //[end]
+    for (int i = 0; i < genes.size(); i++) {
+      if (i > midpoint) {
+        child.genes.get(i).name = genes.get(i).name;
+        child.genes.get(i).price = genes.get(i).price;
+        child.genes.get(i).weight = genes.get(i).weight;
+      } else {
+        child.genes.get(i).name = partner.genes.get(i).name;
+        child.genes.get(i).price = partner.genes.get(i).price;
+        child.genes.get(i).weight = partner.genes.get(i).weight;
+      }
     }
-  }*/
-  
+
+    return child;
+  }
+
 }
