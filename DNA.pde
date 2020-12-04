@@ -6,6 +6,9 @@ class DNA {
   ArrayList<Item> possibleItems = new ArrayList<Item>();
   ArrayList<Item> possibleMutations = new ArrayList<Item>();
   float fitness, maxvalue, v;
+  
+  float calcWeight = 0;
+  float calcValue = 0;
 
   DNA() {
     // LOAD POSSIBLE ITEMS
@@ -65,22 +68,35 @@ class DNA {
   DNA crossover(DNA partner) {
 
     DNA child = new DNA();
+    child.genes.clear();
 
     int midpoint = int(random(genes.size()));
+    int midpointPartner = int(random(partner.genes.size()));
 
     for (int i = 0; i < genes.size(); i++) {
       if (i > midpoint) {
-        child.genes.get(i).name = genes.get(i).name;
-        child.genes.get(i).price = genes.get(i).price;
-        child.genes.get(i).weight = genes.get(i).weight;
-      } else {
-        child.genes.get(i).name = partner.genes.get(i).name;
-        child.genes.get(i).price = partner.genes.get(i).price;
-        child.genes.get(i).weight = partner.genes.get(i).weight;
+        child.genes.add(genes.get(i));
+      }
+    }
+    
+    for (int i = 0; i < partner.genes.size(); i++) {
+      if (i > midpointPartner) {
+        child.genes.add(partner.genes.get(i));
       }
     }
 
     return child;
+  }
+  
+  void calcParams() {
+    for (int i = 0; i < genes.size(); i++) {
+      float w = genes.get(i).weight;
+      float p = genes.get(i).price;
+      
+      calcWeight = calcWeight + w;
+      calcValue = calcValue + p;
+    }
+    
   }
 
 }
