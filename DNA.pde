@@ -20,27 +20,35 @@ class DNA {
     }
     
     // FILL DNA WITH RANDOM ITEMS
-    while (this.weight < 5000 && possibleItems.size() > 0) {
+    int n = int(random(possibleItems.size()));
+    print(n);
+    for (int i = 0; i < n; i++){
       int random = int(random(possibleItems.size()));
       
-      Item i = possibleItems.get(random); 
-      if (weight + i.weight < 5000) {
-        genes.add(i); 
-        weight = weight + int(i.weight);
-        value = value + int(i.price);
-      }
+      Item u = possibleItems.get(random); 
+      genes.add(u); 
+      weight = weight + int(u.weight);
+      value = value + int(u.price);
       
       // REMOVE ITEM AFTEN PUT IN BAG OR IF IT WONT FIT
       possibleItems.remove(random);
+      println(genes.size());
     }
+    
   }
   
   void fitness(){
     fitness = pow((float(value)/float(weight)*100),2);
   }
   
+  void mutate(float mutationRate){
+      if(random(1) < mutationRate){
+      //genes.clear;
+    }
+  }
+  
     // The function receives one argument (DNA) and returns DNA.
-  DNA crossover(DNA partner) {
+  /*DNA crossover(DNA partner) {
 
     // The child is a new instance of DNA.
     // Note that the DNA is generated randomly in the constructor,
@@ -56,6 +64,6 @@ class DNA {
       else child.genes[i] = partner.genes[i];
       //[end]
     }
-  }
+  }*/
   
 }
