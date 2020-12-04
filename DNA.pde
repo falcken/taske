@@ -18,11 +18,13 @@ class DNA {
 
       possibleItems.add(new Item(weight, price, name));
       possibleMutations.add(new Item(weight, price, name));
-      for (int u = 0; u < possibleItems.size(); u++){
-        maxvalue += possibleItems.get(i).price;
-      }
+
       //println("added: "+weight, price, name);
     }
+    for (int u = 0; u < possibleItems.size(); u++){
+      maxvalue += possibleItems.get(u).price;
+    }
+    println(maxvalue);
 
     // FILL DNA WITH RANDOM ITEMS
     int n = int(random(possibleItems.size()));
