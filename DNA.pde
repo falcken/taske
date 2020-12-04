@@ -52,7 +52,9 @@ class DNA {
     for (int i = 0; i < genes.size(); i++){
       if (random(1) > mutationRate){
         int random = int(random(possibleMutations.size()));
-        genes.get(i) = possibleMutations.get(random);
+        genes.get(i).name = possibleMutations.get(random).name;
+        genes.get(i).price = possibleMutations.get(random).price;
+        genes.get(i).weight = possibleMutations.get(random).weight;
       }
     }
   }
