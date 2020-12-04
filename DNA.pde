@@ -3,11 +3,11 @@ class DNA {
   int weight = 0;
   int value = 0;
   ArrayList<Item> genes = new ArrayList<Item>();
-  float fitness;
+  ArrayList<Item> possibleItems = new ArrayList<Item>();
+  float fitness, maxvalue, v;
 
   DNA() {
     // LOAD POSSIBLE ITEMS
-    ArrayList<Item> possibleItems = new ArrayList<Item>();
     for (int i = 0; i < json.size(); i++) {
       JSONObject item = json.getJSONObject(i); 
       
@@ -16,29 +16,36 @@ class DNA {
       int price = parseInt(item.getString("Kroner"));
       
       possibleItems.add(new Item(weight, price, name));
+      for (int u = 0; u < possibleItems.size(); u++){
+        maxvalue += possibleItems.get(i).price;
+      }
       //println("added: "+weight, price, name);
     }
     
     // FILL DNA WITH RANDOM ITEMS
     int n = int(random(possibleItems.size()));
-    print(n);
     for (int i = 0; i < n; i++){
       int random = int(random(possibleItems.size()));
       
       Item u = possibleItems.get(random); 
-      genes.add(u); 
+      genes.add(u);
       weight = weight + int(u.weight);
       value = value + int(u.price);
       
       // REMOVE ITEM AFTEN PUT IN BAG OR IF IT WONT FIT
       possibleItems.remove(random);
-      println(genes.size());
     }
     
   }
   
   void fitness(){
-    fitness = pow((float(value)/float(weight)*100),2);
+    v = float(value)/maxvalue;
+    if (weight < 5000){
+      fitness = pow(v*100,2);
+    } else {
+      fitness = 0;
+    }
+    
   }
   
   void mutate(float mutationRate){
