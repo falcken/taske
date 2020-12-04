@@ -1,5 +1,6 @@
 class DNA {
   int MAX_WEIGHT = 5000;
+  int weight = 0;
   int value = 0;
   ArrayList<Item> genes = new ArrayList<Item>();
 
@@ -18,16 +19,28 @@ class DNA {
     }
     
     // FILL DNA WITH RANDOM ITEMS
-    while (this.value <= 5000) {
-      Item i = possibleItems.get(int(random(possibleItems.size()))); 
-      genes.add(i);   
+    while (this.weight < 5000 && possibleItems.size() > 0) {
+      int random = int(random(possibleItems.size()));
       
-      println("added: "+i.weight, i.price, i.name);
+      Item i = possibleItems.get(random); 
+      if (weight + i.weight < 5000) {
+        genes.add(i); 
+        weight = weight + int(i.weight);
+        value = value + int(i.price);
+      }
+      
+      //println("weight: "+weight);
+      possibleItems.remove(random);
     }
+    
+
   }
   
+  
   void fitness(){
-    
+    for (int i = 0; i < genes.size(); i++) {
+      println(genes.get(i).name);
+    }
   }
   
 }
