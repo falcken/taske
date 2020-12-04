@@ -10,8 +10,7 @@ class DNA {
   DNA() {
     genes = new int[24];
     for (int i = 0; i < json.size(); i++) {
-      genes[i] = int(random(1));
-      println(genes[i]);
+      genes[i] = int(random(0, 2));
     }
     
     for(int i = 0; i < json.size(); i++) {
@@ -44,6 +43,7 @@ class DNA {
     } else {
       fitness = 0;
     }
+    println(maxvalue);
   }
 
   void mutate(float mutationRate) {
