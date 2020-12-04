@@ -9,38 +9,46 @@ class DNA {
     // LOAD POSSIBLE ITEMS
     ArrayList<Item> possibleItems = new ArrayList<Item>();
     for (int i = 0; i < json.size(); i++) {
-      JSONObject item = json.getJSONObject(i); 
-      
+      JSONObject item = json.getJSONObject(i);
+
       String name = item.getString("Navn");
       int weight = parseInt(item.getString("Vaegt"));
       int price = parseInt(item.getString("Kroner"));
-      
+
       possibleItems.add(new Item(weight, price, name));
       //println("added: "+weight, price, name);
     }
-    
+
     // FILL DNA WITH RANDOM ITEMS
-    while (this.weight < 5000 && possibleItems.size() > 0) {
+    int n = int(random(possibleItems.size()));
+    print(n);
+    for (int i = 0; i < n; i++){
       int random = int(random(possibleItems.size()));
-      
-      Item i = possibleItems.get(random); 
-      if (weight + i.weight < 5000) {
-        genes.add(i); 
-        weight = weight + int(i.weight);
-        value = value + int(i.price);
-      }
-      
+
+      Item u = possibleItems.get(random);
+      genes.add(u);
+      weight = weight + int(u.weight);
+      value = value + int(u.price);
+
       // REMOVE ITEM AFTEN PUT IN BAG OR IF IT WONT FIT
       possibleItems.remove(random);
+      println(genes.size());
     }
-    
+
   }
-  
+
   void fitness(){
     fitness = pow((float(value)/float(weight)*100),2);
   }
-  
-  DNA crossover(DNA partner) {
+
+  void mutate(float mutationRate){
+      if(random(1) < mutationRate){
+      //genes.clear;
+    }
+  }
+
+    // The function receives one argument (DNA) and returns DNA.
+  /*DNA crossover(DNA partner) {
 
     DNA child = new DNA();
 
@@ -57,8 +65,8 @@ class DNA {
         child.genes.get(i).weight = partner.genes.get(i).weight;
       }
     }
-    
+
     return child;
   }
-  
+
 }
