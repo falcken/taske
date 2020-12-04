@@ -21,8 +21,6 @@ class DNA {
       int price = parseInt(item.getString("Kroner"));
 
       possibleItems.add(new Item(weight, price, name));
-      
-      maxValue += possibleItems.get(i).price;
     }
   }
 
@@ -37,19 +35,19 @@ class DNA {
       }
     }
     
-    v = value/maxvalue;
+    v = value/1432;
     if (weight < 5000){
-      fitness = v;
+      fitness = pow(v,2);
     } else {
       fitness = 0;
     }
-    println(maxvalue);
   }
 
   void mutate(float mutationRate) {
     for (int i = 0; i < genes.length; i++) {
       if (random(1) < mutationRate) {
         genes[i] = int(random(1));
+        mutations++;
       }
     }
   }

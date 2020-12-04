@@ -1,16 +1,21 @@
 JSONArray json;
 DNA[] population;
-float mutationRate = 0.01;
+float mutationRate = 0.005;
 ArrayList<DNA> matingPool;
+int mutations = 0;
+int iteration = 0;
+PFont f;
 
 float maxFitness = 0;
+int bestBag = 0;
 
 void setup() {
   json = loadJSONArray("data.json");
 
   size(640, 360);
- 
-  population = new DNA[1];
+  f = createFont("Courier", 32, true);
+
+  population = new DNA[1000];
   for (int i = 0; i < population.length; i++) {
     population[i] = new DNA();
     population[i].fitness();
@@ -23,8 +28,9 @@ void draw() {
     
     if (population[i].fitness > maxFitness) {
       maxFitness = population[i].fitness;
+      bestBag = i;
       
-      println(maxFitness, population[i].value, population[i].weight);
+      println(maxFitness, population[i].value, population[i].weight, mutations, iteration);
     }
   }
 
@@ -49,5 +55,30 @@ void draw() {
     child.mutate(mutationRate);
 
     population[i] = child;
+    iteration++;
   }
+}
+
+void displayInfo() {
+  background(255);
+  // Display current status of populationation
+  int answer = population[bestBag].fitness;
+  textFont(f);
+  textAlign(LEFT);
+  fill(0);
+  
+  
+  textSize(24);
+  text("Best phrase:",20,30);
+  textSize(40);
+  text(answer, 20, 100);
+
+  textSize(18);
+  text("total generations:     " + population.getGenerations(), 20, 160);
+  text("average fitness:       " + nf(population.getAverageFitness(), 0, 2), 20, 180);
+  text("total population: " + popmax, 20, 200);
+  text("mutation rate:         " + int(mutationRate * 100) + "%", 20, 220);
+ 
+  textSize(10);
+  text("All phrases:\n" + population.allPhrases(), 500, 10);
 }
