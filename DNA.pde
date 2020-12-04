@@ -30,18 +30,34 @@ class DNA {
         value = value + int(i.price);
       }
       
-      //println("weight: "+weight);
+      // REMOVE ITEM AFTEN PUT IN BAG OR IF IT WONT FIT
       possibleItems.remove(random);
     }
-    
-
   }
-  
   
   void fitness(){
     for (int i = 0; i < genes.size(); i++) {
       Item u = genes.get(i);
       fitness += u.price/u.weight;
+    }
+  }
+  
+    // The function receives one argument (DNA) and returns DNA.
+  DNA crossover(DNA partner) {
+
+    // The child is a new instance of DNA.
+    // Note that the DNA is generated randomly in the constructor,
+    // but we will overwrite it below with DNA from parents.
+    DNA child = new DNA();
+
+    // Picking a random “midpoint” in the genes array
+    int midpoint = int(random(genes.length));
+
+    for (int i = 0; i < genes.length; i++) {
+      //[full] Before midpoint copy genes from one parent, after midpoint copy genes from the other parent
+      if (i > midpoint) child.genes[i] = genes[i];
+      else child.genes[i] = partner.genes[i];
+      //[end]
     }
   }
   
