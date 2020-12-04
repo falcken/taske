@@ -4,15 +4,25 @@ class DNA {
   ArrayList<Item> genes = new ArrayList<Item>();
 
   DNA() {
-    // FILL DNA WITH RANDOM ITEMS
+    // LOAD POSSIBLE ITEMS
+    ArrayList<Item> possibleItems = new ArrayList<Item>();
     for (int i = 0; i < json.size(); i++) {
-
       JSONObject item = json.getJSONObject(i); 
-      String name = item.getString("Navn");
       
-      if (this.value >= 5000) {
-        
-      }
+      String name = item.getString("Navn");
+      int weight = parseInt(item.getString("Vaegt"));
+      int price = parseInt(item.getString("Kroner"));
+      
+      possibleItems.add(new Item(weight, price, name));
+      //println("added: "+weight, price, name);
+    }
+    
+    // FILL DNA WITH RANDOM ITEMS
+    while (this.value <= 5000) {
+      Item i = possibleItems.get(int(random(possibleItems.size()))); 
+      genes.add(i);   
+      
+      println("added: "+i.weight, i.price, i.name);
     }
   }
   
