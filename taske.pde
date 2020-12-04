@@ -9,5 +9,6 @@ void setup() {
   population = new DNA[1];
   for (int i = 0; i < population.length; i++) {
     population[i] = new DNA();
+    population[i].fitness();
   }
 }

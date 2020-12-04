@@ -39,10 +39,7 @@ class DNA {
   
   
   void fitness(){
-    for (int i = 0; i < genes.size(); i++) {
-      Item u = genes.get(i);
-      fitness += u.price/u.weight;
-    }
+    fitness = pow((float(value)/float(weight)*100),2);
   }
   
 }
