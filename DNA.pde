@@ -1,0 +1,8 @@
+class DNA {
+  
+  
+  void fitness(){
+    
+  }
+  
+}
