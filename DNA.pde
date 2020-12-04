@@ -4,6 +4,7 @@ class DNA {
   int value = 0;
   ArrayList<Item> genes = new ArrayList<Item>();
   ArrayList<Item> possibleItems = new ArrayList<Item>();
+  ArrayList<Item> possibleMutations = new ArrayList<Item>();
   float fitness, maxvalue, v;
 
   DNA() {
@@ -16,6 +17,7 @@ class DNA {
       int price = parseInt(item.getString("Kroner"));
 
       possibleItems.add(new Item(weight, price, name));
+      possibleMutations.add(new Item(weight, price, name));
       for (int u = 0; u < possibleItems.size(); u++){
         maxvalue += possibleItems.get(i).price;
       }
@@ -60,7 +62,7 @@ class DNA {
   }
 
     // The function receives one argument (DNA) and returns DNA.
-  /*DNA crossover(DNA partner) {
+  DNA crossover(DNA partner) {
 
     DNA child = new DNA();
 
