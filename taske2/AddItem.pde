@@ -31,7 +31,7 @@ class AddItem {
   }
 
   void display() {
-
+  stroke(0);
     if (show) {
       fill(c1);
       rect(posX, posY, b, h);
