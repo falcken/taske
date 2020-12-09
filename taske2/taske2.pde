@@ -5,6 +5,7 @@ ArrayList<DNA> matingPool;
 int mutations = 0;
 int iteration = 0;
 PFont f;
+UI ui = new UI(20, 240, 0, 1200);
 
 float maxFitness = 0;
 float bestValue = 0;
@@ -24,7 +25,7 @@ void setup() {
   size(640, 360);
   f = createFont("Courier", 32, true);
 
-  population = new DNA[1000];
+  population = new DNA[100];
   for (int i = 0; i < population.length; i++) {
     population[i] = new DNA();
     population[i].fitness();
@@ -46,7 +47,7 @@ void draw() {
 
         bestBag = i;
 
-        println(maxFitness, population[i].value, population[i].weight, mutations, iteration);
+        //println(maxFitness, population[i].value, population[i].weight, mutations, iteration);
       }
 
       if (iteration > bestIteration + 198) {
@@ -86,7 +87,9 @@ void draw() {
 
     iteration++;
     displayInfo();
+    ui.showGraph();
   }
+  
 }
 
 void displayInfo() {
