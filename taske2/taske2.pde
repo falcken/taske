@@ -1,7 +1,7 @@
 JSONArray json;
 DNA[] population;
 AddItem additem;
-float mutationRate = 0.01;
+float mutationRate = 0.005;
 ArrayList<DNA> matingPool;
 int mutations = 0;
 int iteration = 0;
@@ -27,7 +27,7 @@ void setup() {
   f = createFont("Courier", 32, true);
 
 
-  population = new DNA[100];
+  population = new DNA[1000];
 
   for (int i = 0; i < population.length; i++) {
     population[i] = new DNA();

@@ -3,7 +3,7 @@ class AddItem {
 
   String name, w, v = "";
 
-  boolean show, show2;
+  boolean show, show2, typingname, typingw, typingv;
 
   color c1, c2, c3, c4, c5, c6, c7;
 
@@ -31,7 +31,7 @@ class AddItem {
   }
 
   void display() {
-  stroke(0);
+    stroke(0);
     if (show) {
       fill(c1);
       rect(posX, posY, b, h);
@@ -59,6 +59,7 @@ class AddItem {
       line(posX2, posY+25, b2, posY+25);
       fill(c4);
       rect(posX2+10, posY+75, 230, 25);
+      //text();
       fill(c5);
       rect(posX2+10, posY+150, 230, 25);
       fill(c6);
@@ -79,7 +80,15 @@ class AddItem {
     } else {
       c3 = 255;
     }
+    if (mouseX > posX2+10 && mouseX < posX2+10+230 && mouseY > posY+75 && mouseY < posY+75+25) {
+      c4 = 175;
+    } else {
+      c4 = 255;
+    }
     if (mousePressed) {
+      typingname = false;
+      typingv = false;
+      typingw = false;
       println(mouseX, mouseY);
       if (show) {
         if (mouseX > posX && mouseX < posX+b && mouseY > posY && mouseY < posY+h) {
@@ -93,6 +102,17 @@ class AddItem {
           show = true;
           show2 = false;
         }
+        if (mouseX > posX2+10 && mouseX < posX2+10+230 && mouseY > posY+75 && mouseY < posY+75+25) {
+          typingname = true;
+        }
+      }
+    }
+    if (keyPressed) {
+      println("Hello");
+      if (typingname) {
+        name = name + key;
+        println(name);
+        println("Hell");
       }
     }
   }
