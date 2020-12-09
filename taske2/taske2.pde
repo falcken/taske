@@ -1,6 +1,7 @@
 JSONArray json;
 DNA[] population;
-float mutationRate = 0.005;
+AddItem additem;
+float mutationRate = 0.01;
 ArrayList<DNA> matingPool;
 int mutations = 0;
 int iteration = 0;
@@ -21,22 +22,28 @@ boolean possibleBest = false;
 
 void setup() {
   json = loadJSONArray("data.json");
-
+  
   size(640, 360);
   f = createFont("Courier", 32, true);
 
+
   population = new DNA[100];
+
   for (int i = 0; i < population.length; i++) {
     population[i] = new DNA();
     population[i].fitness();
   }
+  additem = new AddItem();
   startTime = millis();
 }
 
 void draw() {
+ 
+  
   if (!stop) {
     for (int i = 0; i < population.length; i++) {
       population[i].fitness();
+      //println(population[i].fitness, population[i].value, population[i].weight);
 
       if (population[i].fitness > maxFitness) {
         maxFitness = population[i].fitness;
@@ -50,10 +57,10 @@ void draw() {
         //println(maxFitness, population[i].value, population[i].weight, mutations, iteration);
       }
 
-      if (iteration > bestIteration + 198) {
+      /*if (iteration > bestIteration + 198) {
         stop = true;
         possibleBest = false;
-      }
+      }*/
 
       if (iteration > bestIteration + 48) {
         possibleBest = true;
@@ -61,6 +68,7 @@ void draw() {
         possibleBest = false;
       }
     }
+    
 
     ArrayList<DNA> matingPool = new ArrayList<DNA>();
 
@@ -89,7 +97,10 @@ void draw() {
     displayInfo();
     ui.showGraph();
   }
-  
+
+   additem.display();
+   additem.knap();
+
 }
 
 void displayInfo() {
