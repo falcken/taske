@@ -64,7 +64,7 @@ class AddItem {
       fill(c6);
       rect(posX2+10, posY+225, 230, 25);
       fill(c7);
-      rect(posX2+10, posY+300, 230, 25);
+      rect(posX2+75, posY+265, 100, 35);
     }
   }
 
