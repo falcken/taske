@@ -7,7 +7,16 @@ int iteration = 0;
 PFont f;
 
 float maxFitness = 0;
+float bestValue = 0;
+float bestWeight = 0;
+int bestTime;
+int bestIteration;
+
 int bestBag = 0;
+int startTime = 0;
+
+boolean stop = false;
+boolean possibleBest = false;
 
 void setup() {
   json = loadJSONArray("data.json");
@@ -20,65 +29,103 @@ void setup() {
     population[i] = new DNA();
     population[i].fitness();
   }
+  startTime = millis();
 }
 
 void draw() {
-  for (int i = 0; i < population.length; i++) {
-    population[i].fitness();
-    
-    if (population[i].fitness > maxFitness) {
-      maxFitness = population[i].fitness;
-      bestBag = i;
-      
-      println(maxFitness, population[i].value, population[i].weight, mutations, iteration);
+  if (!stop) {
+    for (int i = 0; i < population.length; i++) {
+      population[i].fitness();
+
+      if (population[i].fitness > maxFitness) {
+        maxFitness = population[i].fitness;
+        bestValue = population[i].value;
+        bestWeight = population[i].weight;
+        bestTime = millis()-startTime;
+        bestIteration = iteration;
+
+        bestBag = i;
+
+        println(maxFitness, population[i].value, population[i].weight, mutations, iteration);
+      }
+
+      if (iteration > bestIteration + 198) {
+        stop = true;
+        possibleBest = false;
+      }
+
+      if (iteration > bestIteration + 48) {
+        possibleBest = true;
+      } else {
+        possibleBest = false;
+      }
     }
-  }
 
-  ArrayList<DNA> matingPool = new ArrayList<DNA>();
+    ArrayList<DNA> matingPool = new ArrayList<DNA>();
 
-  for (int i = 0; i < population.length; i++) {
-    int n = int(population[i].fitness * 100);
-    for (int j = 0; j < n; j++) {
-      matingPool.add(population[i]);
+    for (int i = 0; i < population.length; i++) {
+      int n = int(population[i].fitness * 100);
+      for (int j = 0; j < n; j++) {
+        matingPool.add(population[i]);
+      }
     }
-  }
 
-  for (int i = 0; i < population.length; i++) {
-    int a = int(random(matingPool.size()));
-    int b = int(random(matingPool.size()));
-    
-    DNA partnerA = matingPool.get(a);
-    DNA partnerB = matingPool.get(b);
+    for (int i = 0; i < population.length; i++) {
+      int a = int(random(matingPool.size()));
+      int b = int(random(matingPool.size()));
 
-    DNA child = partnerA.crossover(partnerB);
+      DNA partnerA = matingPool.get(a);
+      DNA partnerB = matingPool.get(b);
 
-    child.mutate(mutationRate);
+      DNA child = partnerA.crossover(partnerB);
 
-    population[i] = child;
+      child.mutate(mutationRate);
+
+      population[i] = child;
+    }
+
     iteration++;
+    displayInfo();
   }
 }
 
 void displayInfo() {
   background(255);
   // Display current status of populationation
-  int answer = population[bestBag].fitness;
+  float answer = maxFitness;
   textFont(f);
   textAlign(LEFT);
   fill(0);
-  
-  
+
+
   textSize(24);
-  text("Best phrase:",20,30);
+  text("Bedste værdi:", 20, 30);
   textSize(40);
-  text(answer, 20, 100);
+  text(bestValue, 20, 100);
+
+  textSize(24);
+  text("Tid:", 350, 30);
+  if (stop) {
+    fill(0, 255, 0);
+  }
+  textSize(40);
+  text(bestTime+" ms", 350, 100);
+
+  if (possibleBest && !stop) {
+    fill(255, 69, 0);
+    textSize(24);
+    text("Muligt optimal! (bekræfter)", 50, 125);
+    fill(0);
+  } else if (stop) {
+    fill(0, 255, 0);
+    textSize(24);
+    text("Optimal, efter "+bestIteration+" generationer!", 50, 125);
+    fill(0);
+  }
 
   textSize(18);
-  text("total generations:     " + population.getGenerations(), 20, 160);
-  text("average fitness:       " + nf(population.getAverageFitness(), 0, 2), 20, 180);
-  text("total population: " + popmax, 20, 200);
-  text("mutation rate:         " + int(mutationRate * 100) + "%", 20, 220);
- 
-  textSize(10);
-  text("All phrases:\n" + population.allPhrases(), 500, 10);
+  text("total generations:     " + iteration + " ("+bestIteration+")", 20, 160);
+  text("bedste fitness:        " + answer, 20, 180);
+  text("bedste vægt:           " + bestWeight, 20, 200);
+  text("mutation rate:         " + (mutationRate * 100) + "%", 20, 220);
 }
