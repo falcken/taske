@@ -46,7 +46,7 @@ class DNA {
   void mutate(float mutationRate) {
     for (int i = 0; i < genes.length; i++) {
       if (random(1) < mutationRate) {
-        genes[i] = int(random(1));
+        genes[i] = int(random(0, 2));
         mutations++;
       }
     }
