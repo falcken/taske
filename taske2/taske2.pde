@@ -22,7 +22,7 @@ boolean possibleBest = false;
 
 void setup() {
   json = loadJSONArray("data.json");
-  
+
   size(640, 360);
   f = createFont("Courier", 32, true);
 
@@ -38,8 +38,8 @@ void setup() {
 }
 
 void draw() {
- 
-  
+
+
   if (!stop) {
     for (int i = 0; i < population.length; i++) {
       population[i].fitness();
@@ -58,9 +58,9 @@ void draw() {
       }
 
       /*if (iteration > bestIteration + 198) {
-        stop = true;
-        possibleBest = false;
-      }*/
+       stop = true;
+       possibleBest = false;
+       }*/
 
       if (iteration > bestIteration + 48) {
         possibleBest = true;
@@ -68,7 +68,7 @@ void draw() {
         possibleBest = false;
       }
     }
-    
+
 
     ArrayList<DNA> matingPool = new ArrayList<DNA>();
 
@@ -98,9 +98,53 @@ void draw() {
     ui.showGraph();
   }
 
-   additem.display();
-   additem.knap();
-
+  additem.display();
+  additem.knap();
+}
+void keyPressed() {
+  if (additem.typingname) {
+    if (key != DELETE && key != BACKSPACE) {
+      if (additem.name.length() < 24) {
+        additem.name = additem.name + key;
+      }
+    }
+    println(additem.name);
+    if (additem.name != null) {
+      if (key == DELETE || key == BACKSPACE) {
+        additem.name = additem.name.substring(0, max(0, additem.name.length()-1));
+      }
+    }
+  }
+  if (additem.typingv) {
+    if (key != DELETE && key != BACKSPACE) {
+      if (additem.v.length() < 2) {
+        if (key == '1' || key == '2' || key == '3' || key == '4' || key == '5' || key == '6' || key == '7' || key == '8' || key == '9' || key == '0') {
+          additem.v = additem.v + key;
+        }
+      }
+    }
+    println(additem.v);
+    if (additem.v != null) {
+      if (key == DELETE || key == BACKSPACE) {
+        additem.v = additem.v.substring(0, max(0, additem.v.length()-1));
+      }
+    }
+  }
+  if (additem.typingw) {
+    if (key != DELETE && key != BACKSPACE) {
+      if (additem.w.length() < 3) {
+        if (key == '1' || key == '2' || key == '3' || key == '4' || key == '5' || key == '6' || key == '7' || key == '8' || key == '9' || key == '0') {
+          additem.w = additem.w + key;
+        }
+      }
+    }
+    println(additem.w);
+    if (additem.w != null) {
+      if (key == DELETE || key == BACKSPACE) {
+        additem.w = additem.w.substring(0, max(0, additem.w.length()-1));
+      }
+    }
+  }
 }
 
 void displayInfo() {
