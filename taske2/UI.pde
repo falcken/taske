@@ -18,7 +18,7 @@ class UI {
     fill(240, 240, 240);
     rect(posX, posY, 175, 100);
     float mappedBest = map(maxFitness, 0, 0.6227, 0, 100);
-    println(bestValue, mappedBest);
+    //println(bestValue, mappedBest);
 
     for (int i = 0; i < buffer.length; i++) {
       if (i < buffer.length-1) {

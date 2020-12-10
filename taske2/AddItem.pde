@@ -1,9 +1,11 @@
 class AddItem {
   float posX, posY, b, h, posX2, b2, h2, sc;
 
-  String name, w, v = "";
+  String name="";
+  String w = "";
+  String v = "";
 
-  boolean show, show2;
+  boolean show, show2, typingname, typingw, typingv;
 
   color c1, c2, c3, c4, c5, c6, c7;
 
@@ -31,7 +33,7 @@ class AddItem {
   }
 
   void display() {
-
+    stroke(0);
     if (show) {
       fill(c1);
       rect(posX, posY, b, h);
@@ -57,14 +59,32 @@ class AddItem {
       line(posX+28, posY+5, posX+28+sc, posY+5+sc);
       line(posX+28, posY+5+sc, posX+28+sc, posY+5);
       line(posX2, posY+25, b2, posY+25);
+      fill(0);
+      text("Navn (maks. 24 tegn)", posX2+10, posY+50, 230, 25);
       fill(c4);
       rect(posX2+10, posY+75, 230, 25);
+      fill(0);
+      if (name != null) {
+        text(name, posX2+10, posY+75, 230, 25);
+      }
+      fill(0);
+      text("Værdi (maks. 99 kr)", posX2+10, posY+125, 230, 25);
       fill(c5);
       rect(posX2+10, posY+150, 230, 25);
+      fill(0);
+      if (v != null) {
+        text(v, posX2+10, posY+150, 230, 25);
+      }
+      fill(0);
+      text("Vægt (maks. 999 kg)", posX2+10, posY+200, 230, 25);
       fill(c6);
       rect(posX2+10, posY+225, 230, 25);
+      fill(0);
+      if (w != null) {
+        text(w, posX2+10, posY+225, 230, 25);
+      }
       fill(c7);
-      rect(posX2+10, posY+300, 230, 25);
+      rect(posX2+75, posY+265, 100, 35);
     }
   }
 
@@ -79,11 +99,40 @@ class AddItem {
     } else {
       c3 = 255;
     }
+    if (!typingname) {
+      if (mouseX > posX2+10 && mouseX < posX2+10+230 && mouseY > posY+75 && mouseY < posY+75+25) {
+        c4 = 175;
+      } else {
+        c4 = 255;
+      }
+    }
+    if (!typingv) {
+      if (mouseX > posX2+10 && mouseX < posX2+10+230 && mouseY > posY+150 && mouseY < posY+150+25) {
+        c5 = 175;
+      } else {
+        c5 = 255;
+      }
+    }
+    if (!typingw) {
+      if (mouseX > posX2+10 && mouseX < posX2+10+230 && mouseY > posY+225 && mouseY < posY+225+25) {
+        c6 = 175;
+      } else {
+        c6 = 255;
+      }
+    }
+    if (mouseX > posX2+75 && mouseX < posX2+75+100 && mouseY > posY+265 && mouseY < posY+265+35) {
+      c7 = 175;
+    } else {
+      c7 = 255;
+    }
     if (mousePressed) {
-      println(mouseX, mouseY);
+      typingname = false;
+      typingv = false;
+      typingw = false;
+      //println(mouseX, mouseY);
       if (show) {
         if (mouseX > posX && mouseX < posX+b && mouseY > posY && mouseY < posY+h) {
-          println("CLICK");
+          //println("CLICK");
           show = false;
           show2 = true;
         }
@@ -92,6 +141,30 @@ class AddItem {
         if (mouseX > posX+28 && mouseX < posX+28+sc && mouseY > posY+5 && mouseY < posY+5+sc) {
           show = true;
           show2 = false;
+        }
+        if (mouseX > posX2+10 && mouseX < posX2+10+230 && mouseY > posY+75 && mouseY < posY+75+25) {
+          typingname = true;
+        }
+        if (mouseX > posX2+10 && mouseX < posX2+10+230 && mouseY > posY+150 && mouseY < posY+150+25) {
+          typingv = true;
+        }
+        if (mouseX > posX2+10 && mouseX < posX2+10+230 && mouseY > posY+225 && mouseY < posY+225+25) {
+          typingw = true;
+        }
+        if(typingname){
+          c4 = 175;
+          c5 = 255;
+          c6 = 255;
+        }
+        if(typingv){
+          c4 = 255;
+          c5 = 175;
+          c6 = 255;
+        }
+        if(typingw){
+          c4 = 255;
+          c5 = 255;
+          c6 = 175;
         }
       }
     }
