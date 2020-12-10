@@ -25,7 +25,7 @@ void setup() {
   size(640, 360);
   f = createFont("Courier", 32, true);
 
-  population = new DNA[100];
+  population = new DNA[250];
   for (int i = 0; i < population.length; i++) {
     population[i] = new DNA();
     population[i].fitness();
