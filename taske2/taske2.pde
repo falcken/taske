@@ -76,17 +76,14 @@ if(!restart){
         //println(maxFitness, population[i].value, population[i].weight, mutations, iteration);
       }
 
-<<<<<<< HEAD
         if (iteration > bestIteration + 198) {
           bestFound = true;
           possibleBest = false;
         }
-=======
       /*if (iteration > bestIteration + 198) {
        stop = true;
        possibleBest = false;
        }*/
->>>>>>> parent of be60bbe... Merge branch 'master' of https://github.com/falcken/taske
 
       if (iteration > bestIteration + 48) {
         possibleBest = true;
@@ -231,5 +228,7 @@ void additemrestart(){
   bestIteration = 0;
   iteration = 0;
   restart = false;
+  startTime = millis();
+  bestFound = false;
   //println(child.genes);
 }
