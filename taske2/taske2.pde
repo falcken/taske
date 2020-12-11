@@ -15,6 +15,7 @@ float bestWeight = 0;
 int bestTime;
 int bestIteration;
 int populationsize;
+String everything = "";
 
 int bestBag = 0;
 int startTime = 0;
@@ -30,7 +31,7 @@ void setup() {
   size(640, 360);
   f = createFont("Courier", 32, true);
 
-  populationsize = 100;
+  populationsize = 250;
   population = new DNA[populationsize];
 
   for (int i = 0; i < population.length; i++) {
@@ -62,6 +63,12 @@ if(!restart){
         bestWeight = population[i].weight;
         bestTime = millis()-startTime;
         bestIteration = iteration;
+            
+        for (int u = 0; u < 24; u++) {
+          if (population[i].genes[u] == 1) {
+            everything += population[i].possibleItems.get(u).name + "\n";
+          }
+        }
 
         bestBag = i;
 
@@ -162,6 +169,7 @@ void displayInfo() {
   textFont(f);
   textAlign(LEFT);
   fill(0);
+  println(everything);
 
 
   textSize(24);
@@ -202,7 +210,7 @@ void additemrestart(){
   for (int i = 0; i < population.length; i++) {
     population[i] = new DNA();
     population[i].fitness();
-    println(i);
+    //println(i);
   }
   maxFitness = 0;
   bestValue = 0;

@@ -88,15 +88,4 @@ class DNA {
     return child;
   }
 
-  String allPhrases() {
-    String everything = "";
-    
-    int displayLimit = min(population.length,50);
-    
-    
-    for (int i = 0; i < displayLimit; i++) {
-      everything += fitness + "\n";
-    }
-    return everything;
-   }
 }
