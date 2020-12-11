@@ -192,7 +192,7 @@ void displayInfo() {
 
   textSize(18);
   if (foundBest) {
-    text("total generations:     " + bestIteration, 20, 160);
+    text("total generations:     " + int(bestIteration+100), 20, 160);
   } else {
     text("total generations:     " + iteration + " ("+bestIteration+")", 20, 160);
   }
