@@ -17,7 +17,7 @@ class UI {
   void showGraph() {
     fill(240, 240, 240);
     rect(posX, posY, 175, 100);
-    float mappedBest = map(maxFitness, 0, 0.67, 0, 100);
+    float mappedBest = map(maxFitness, 0, mapValue, 0, 100);
     //println(bestValue, mappedBest);
 
     if (!foundBest) {

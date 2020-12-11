@@ -13,6 +13,7 @@ UI ui = new UI(20, 240, 0, 1200);
 float maxFitness = 0;
 float bestValue = 0;
 float bestWeight = 0;
+float mapValue = 0.65;
 int bestTime;
 int bestIteration;
 int populationsize;
@@ -232,5 +233,6 @@ void additemrestart() {
   startTime = millis();
   restart = false;
   foundBest = false;
+  mapValue += 0.02;
   //println(child.genes);
 }
