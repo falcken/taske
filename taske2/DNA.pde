@@ -5,15 +5,15 @@ class DNA {
   int[] genes;
   float fitness, maxvalue, v;
   ArrayList<Item> possibleItems = new ArrayList<Item>();
-  float maxValue = 0;
+  float maxValue = 1432;
 
   DNA() {
     genes = new int[24];
     for (int i = 0; i < json.size(); i++) {
       genes[i] = int(random(0, 2));
     }
-    if(n > 0){
-      for (int i = 0; i < n; i++)
+    if(counter > 0){
+      for (int i = 0; i < counter; i++){
       genes = append(genes, int(random(0, 2)));
     }
    // println(" ");
@@ -35,10 +35,16 @@ class DNA {
 
       possibleItems.add(new Item(weight, price, name));
     }
+    if(counter > 0){
+      for (int i = 0; i < counter; i++){
+      possibleItems.add(new Item(parseInt(additem.newitemw[i]), parseInt(additem.newitemv[i]), additem.newitemname[i]));
+      maxValue = maxValue + parseInt(additem.newitemv[i]);
+     }
+    }
     if(restart){
-      possibleItems.add(new Item(parseInt(additem.newitemw), parseInt(additem.newitemv), additem.newitemname));
       println(possibleItems.get(possibleItems.size()-1).name, possibleItems.get(possibleItems.size()-1).price, possibleItems.get(possibleItems.size()-1).weight);
       println(possibleItems.size());
+    }
     }
   }
 
@@ -53,7 +59,7 @@ class DNA {
       }
     }
     
-    v = value/1432;
+    v = value/maxValue;
     if (weight < 5000){
       fitness = pow(v,2);
     } else {

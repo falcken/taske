@@ -19,7 +19,7 @@ String everything = "";
 
 int bestBag = 0;
 int startTime = 0;
-int n = 0;
+int counter = 0;
 
 boolean stop = false;
 boolean possibleBest = false;
@@ -219,7 +219,6 @@ void additemrestart(){
   for (int i = 0; i < population.length; i++) {
     population[i] = new DNA();
     population[i].fitness();
-    //println(i);
   }
   maxFitness = 0;
   bestValue = 0;

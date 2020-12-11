@@ -6,9 +6,9 @@ class AddItem {
   String name="";
   String w = "";
   String v = "";
-  String newitemname = "";
-  String newitemv = "";
-  String newitemw = "";
+  String[] newitemname;
+  String[] newitemv;
+  String[] newitemw;
 
   boolean show, show2, typingname, typingw, typingv;
   
@@ -36,6 +36,10 @@ class AddItem {
     c5 = 255;
     c6 = 255;
     c7 = 255;
+    
+    newitemname = new String[0];
+    newitemv = new String[0];
+    newitemw = new String[0];
   }
 
   void display() {
@@ -161,15 +165,15 @@ class AddItem {
         }
         if (mouseX > posX2+75 && mouseX < posX2+75+100 && mouseY > posY+265 && mouseY < posY+265+35) {
           if(name != "" && v != "" && w != ""){
-          newitemname = name;
+          newitemname = append(newitemname, name);
           name = "";
-          newitemv = v;
+          newitemv = append(newitemv, v);
           v = "";
-          newitemw = w;
+          newitemw = append(newitemw, w);
           w = "";
           show = true;
           show2 = false;
-          n++;
+          counter = counter + 1;
           restart = true;
           println("name: "+newitemname+" value: "+newitemv+" weight: "+newitemw);
           }
