@@ -23,7 +23,7 @@ class AddItem {
     h = 30;
     posX2 = width-250;
     b2 = width;
-    h2 = height - 50;
+    h2 = h + 300;
     sc = 15;
 
     show = true;
