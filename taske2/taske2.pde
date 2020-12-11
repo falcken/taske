@@ -24,6 +24,7 @@ int counter = 0;
 boolean stop = false;
 boolean possibleBest = false;
 boolean restart = false;
+boolean bestFound = false;
 
 void setup() {
   json = loadJSONArray("data.json");
@@ -75,10 +76,10 @@ if(!restart){
         //println(maxFitness, population[i].value, population[i].weight, mutations, iteration);
       }
 
-        /*if (iteration > bestIteration + 198) {
-         stop = true;
-         possibleBest = false;
-         }*/
+        if (iteration > bestIteration + 198) {
+          bestFound = true;
+          possibleBest = false;
+        }
 
         if (iteration > bestIteration + 48) {
           possibleBest = true;
@@ -185,12 +186,12 @@ void displayInfo() {
   textSize(40);
   text(bestTime+" ms", 350, 100);
 
-  if (possibleBest && !stop) {
+  if (possibleBest && !bestFound) {
     fill(255, 69, 0);
     textSize(24);
     text("Muligt optimal! (bekræfter)", 50, 125);
     fill(0);
-  } else if (stop) {
+  } else if (bestFound) {
     fill(0, 255, 0);
     textSize(24);
     text("Optimal, efter "+bestIteration+" generationer!", 50, 125);
@@ -198,7 +199,11 @@ void displayInfo() {
   }
 
   textSize(18);
-  text("total generations:     " + iteration + " ("+bestIteration+")", 20, 160);
+  if (bestFound) {
+      text("total generations:     " +bestIteration, 20, 160);
+  } else {
+      text("total generations:     " + iteration + " ("+bestIteration+")", 20, 160);
+  }
   text("bedste fitness:        " + answer, 20, 180);
   text("bedste vægt:           " + bestWeight, 20, 200);
   text("mutation rate:         " + (mutationRate * 100) + "%", 20, 220);
