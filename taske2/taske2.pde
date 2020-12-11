@@ -72,10 +72,7 @@ void draw() {
           bestBagContents = "";
           for(int u = 0; u < population[i].genes.length; u++) {
             if (population[i].genes[u] == 1) {
-              if (u%4 == 0) {
-                 bestBagContents = bestBagContents + "\n";
-              }
-              bestBagContents = bestBagContents + population[i].possibleItems.get(u).name + ", ";
+              bestBagContents = bestBagContents + population[i].possibleItems.get(u).name + ", " + "\n";
             }
           }
 
@@ -182,11 +179,11 @@ void displayInfo() {
   text("Bedste værdi:", 20, 30);
   textSize(40);
   text(bestValue, 20, 100);
-  image(img, 200, 300, width/2, height/2);
+  image(img, 250, 340, width/2, height/2);
   textSize(24);
-  text(int(bestValue), 420, 360);
+  text(int(bestValue), 470, 400);
   textSize(16);
-  text(bestBagContents, 20, 500);
+  text(bestBagContents, 20, 400);
 
   textSize(24);
   text("Tid:", 350, 30);
