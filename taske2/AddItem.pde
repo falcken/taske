@@ -1,11 +1,17 @@
 class AddItem {
   float posX, posY, b, h, posX2, b2, h2, sc;
+  
+  int n = 0;
 
   String name="";
   String w = "";
   String v = "";
+  String newitemname = "";
+  String newitemv = "";
+  String newitemw = "";
 
   boolean show, show2, typingname, typingw, typingv;
+  
 
   color c1, c2, c3, c4, c5, c6, c7;
 
@@ -73,7 +79,7 @@ class AddItem {
       rect(posX2+10, posY+150, 230, 25);
       fill(0);
       if (v != null) {
-        text(v, posX2+10, posY+150, 230, 25);
+        text(v+" kr", posX2+10, posY+150, 230, 25);
       }
       fill(0);
       text("Vægt (maks. 999 kg)", posX2+10, posY+200, 230, 25);
@@ -81,10 +87,12 @@ class AddItem {
       rect(posX2+10, posY+225, 230, 25);
       fill(0);
       if (w != null) {
-        text(w, posX2+10, posY+225, 230, 25);
+        text(w+" kg", posX2+10, posY+225, 230, 25);
       }
       fill(c7);
       rect(posX2+75, posY+265, 100, 35);
+      fill(0);
+      text("Run", posX2+75, posY+265, 100, 35);
     }
   }
 
@@ -151,17 +159,32 @@ class AddItem {
         if (mouseX > posX2+10 && mouseX < posX2+10+230 && mouseY > posY+225 && mouseY < posY+225+25) {
           typingw = true;
         }
-        if(typingname){
+        if (mouseX > posX2+75 && mouseX < posX2+75+100 && mouseY > posY+265 && mouseY < posY+265+35) {
+          if(name != "" && v != "" && w != ""){
+          newitemname = name;
+          name = "";
+          newitemv = v;
+          v = "";
+          newitemw = w;
+          w = "";
+          show = true;
+          show2 = false;
+          n++;
+          restart = true;
+          println("name: "+newitemname+" value: "+newitemv+" weight: "+newitemw);
+          }
+        }
+        if (typingname) {
           c4 = 175;
           c5 = 255;
           c6 = 255;
         }
-        if(typingv){
+        if (typingv) {
           c4 = 255;
           c5 = 175;
           c6 = 255;
         }
-        if(typingw){
+        if (typingw) {
           c4 = 255;
           c5 = 255;
           c6 = 175;

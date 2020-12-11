@@ -1,5 +1,6 @@
 JSONArray json;
 DNA[] population;
+DNA child;
 AddItem additem;
 float mutationRate = 0.005;
 ArrayList<DNA> matingPool;
@@ -13,12 +14,15 @@ float bestValue = 0;
 float bestWeight = 0;
 int bestTime;
 int bestIteration;
+int populationsize;
 
 int bestBag = 0;
 int startTime = 0;
+int n = 0;
 
 boolean stop = false;
 boolean possibleBest = false;
+boolean restart = false;
 
 void setup() {
   json = loadJSONArray("data.json");
@@ -26,8 +30,8 @@ void setup() {
   size(640, 360);
   f = createFont("Courier", 32, true);
 
-
-  population = new DNA[1000];
+  populationsize = 100;
+  population = new DNA[populationsize];
 
   for (int i = 0; i < population.length; i++) {
     population[i] = new DNA();
@@ -38,9 +42,16 @@ void setup() {
 }
 
 void draw() {
-
-
+if(restart){
+    additemrestart();
+  }
+if(!restart){
   if (!stop) {
+    displayInfo();
+    additem.display();
+    additem.knap();
+    ui.showGraph();
+    
     for (int i = 0; i < population.length; i++) {
       population[i].fitness();
       //println(population[i].fitness, population[i].value, population[i].weight);
@@ -94,16 +105,13 @@ void draw() {
     }
 
     iteration++;
-    displayInfo();
-    ui.showGraph();
   }
-
-  additem.display();
-  additem.knap();
+}
 }
 void keyPressed() {
+  println("key: " + key + " keyCode: "+keyCode);
   if (additem.typingname) {
-    if (key != DELETE && key != BACKSPACE) {
+    if (key != DELETE && key != BACKSPACE && key != RETURN && key != ENTER && key != TAB && key != 32 && keyCode != 16) {
       if (additem.name.length() < 24) {
         additem.name = additem.name + key;
       }
@@ -116,7 +124,7 @@ void keyPressed() {
     }
   }
   if (additem.typingv) {
-    if (key != DELETE && key != BACKSPACE) {
+    if (key != DELETE && key != BACKSPACE && key != RETURN && key != ENTER && key != TAB && key != 32 && keyCode != 16) {
       if (additem.v.length() < 2) {
         if (key == '1' || key == '2' || key == '3' || key == '4' || key == '5' || key == '6' || key == '7' || key == '8' || key == '9' || key == '0') {
           additem.v = additem.v + key;
@@ -131,7 +139,7 @@ void keyPressed() {
     }
   }
   if (additem.typingw) {
-    if (key != DELETE && key != BACKSPACE) {
+    if (key != DELETE && key != BACKSPACE && key != RETURN && key != ENTER && key != TAB && key != 32 && keyCode != 16) {
       if (additem.w.length() < 3) {
         if (key == '1' || key == '2' || key == '3' || key == '4' || key == '5' || key == '6' || key == '7' || key == '8' || key == '9' || key == '0') {
           additem.w = additem.w + key;
@@ -186,4 +194,22 @@ void displayInfo() {
   text("bedste fitness:        " + answer, 20, 180);
   text("bedste vægt:           " + bestWeight, 20, 200);
   text("mutation rate:         " + (mutationRate * 100) + "%", 20, 220);
+}
+
+void additemrestart(){
+  population = null;
+  population = new DNA[populationsize];
+  for (int i = 0; i < population.length; i++) {
+    population[i] = new DNA();
+    population[i].fitness();
+    println(i);
+  }
+  maxFitness = 0;
+  bestValue = 0;
+  bestWeight = 0;
+  bestBag = 0;
+  bestIteration = 0;
+  iteration = 0;
+  restart = false;
+  //println(child.genes);
 }
