@@ -26,6 +26,8 @@ boolean foundBest = false;
 boolean possibleBest = false;
 boolean restart = false;
 
+String bestBagContents = "";
+
 void setup() {
   json = loadJSONArray("data.json");
   img = loadImage("taske.png");
@@ -67,6 +69,15 @@ void draw() {
           bestIteration = iteration;
 
           bestBag = i;
+          bestBagContents = "";
+          for(int u = 0; u < population[i].genes.length; u++) {
+            if (population[i].genes[u] == 1) {
+              if (u%4 == 0) {
+                 bestBagContents = bestBagContents + "\n";
+              }
+              bestBagContents = bestBagContents + population[i].possibleItems.get(u).name + ", ";
+            }
+          }
 
           //println(maxFitness, population[i].value, population[i].weight, mutations, iteration);
         }
@@ -174,6 +185,8 @@ void displayInfo() {
   image(img, 200, 300, width/2, height/2);
   textSize(24);
   text(int(bestValue), 420, 360);
+  textSize(16);
+  text(bestBagContents, 20, 500);
 
   textSize(24);
   text("Tid:", 350, 30);
