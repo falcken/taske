@@ -1,6 +1,6 @@
 class AddItem {
   float posX, posY, b, h, posX2, b2, h2, sc;
-  
+
   int n = 0;
 
   String name="";
@@ -11,7 +11,7 @@ class AddItem {
   String[] newitemw;
 
   boolean show, show2, typingname, typingw, typingv;
-  
+
 
   color c1, c2, c3, c4, c5, c6, c7;
 
@@ -36,7 +36,7 @@ class AddItem {
     c5 = 255;
     c6 = 255;
     c7 = 255;
-    
+
     newitemname = new String[0];
     newitemv = new String[0];
     newitemw = new String[0];

@@ -18,14 +18,14 @@ class DNA {
       genes = append(genes, int(random(0, 2)));
      }
     }
-    
+
     if(restart){
       //genes = expand(genes, 1);
     }
-    
+
     //println("genes:");
     //println(genes);
-    
+
     for(int i = 0; i < json.size(); i++) {
       JSONObject item = json.getJSONObject(i);
 
@@ -52,14 +52,15 @@ class DNA {
       } else {
         //println("næ");
       }
-      
+
+    }
     }
   }
 
   void fitness() {
     value = 0;
     weight = 0;
-    
+
     for(int i = 0; i < genes.length; i++) {
       if (genes[i] == 1) {
         //println(possibleItems.get(i).price);
@@ -67,7 +68,7 @@ class DNA {
         weight += possibleItems.get(i).weight;
       }
     }
-    
+
     v = value/maxValue;
     if (weight < 5000){
       fitness = pow(v,2);
@@ -105,10 +106,10 @@ class DNA {
 
   String allPhrases() {
     String everything = "";
-    
+
     int displayLimit = min(population.length,50);
-    
-    
+
+
     for (int i = 0; i < displayLimit; i++) {
       everything += fitness + "\n";
     }
