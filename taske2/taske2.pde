@@ -6,6 +6,7 @@ float mutationRate = 0.005;
 ArrayList<DNA> matingPool;
 int mutations = 0;
 int iteration = 0;
+PImage img;
 PFont f;
 UI ui = new UI(20, 240, 0, 1200);
 
@@ -27,8 +28,9 @@ boolean restart = false;
 
 void setup() {
   json = loadJSONArray("data.json");
+  img = loadImage("taske.png");
 
-  size(640, 360);
+  size(640, 800);
   f = createFont("Courier", 32, true);
 
   populationsize = 1000;
@@ -169,6 +171,9 @@ void displayInfo() {
   text("Bedste værdi:", 20, 30);
   textSize(40);
   text(bestValue, 20, 100);
+  image(img, 200, 300, width/2, height/2);
+  textSize(24);
+  text(int(bestValue), 420, 360);
 
   textSize(24);
   text("Tid:", 350, 30);
