@@ -17,15 +17,14 @@ class UI {
   void showGraph() {
     fill(240, 240, 240);
     rect(posX, posY, 175, 100);
-    float mappedBest = map(maxFitness, 0, 0.6227, 0, 100);
+    float mappedBest = map(maxFitness, 0, 0.67, 0, 100);
     //println(bestValue, mappedBest);
-    if (!bestFound) {
-      for (int i = 0; i < buffer.length; i++) {
-        if (i < buffer.length-1) {
-          buffer[i] = buffer[i+1];
-        } else {
-          buffer[i] = mappedBest;
-        }
+
+    for (int i = 0; i < buffer.length; i++) {
+      if (i < buffer.length-1) {
+        buffer[i] = buffer[i+1];
+      } else {
+        buffer[i] = mappedBest;
       }
     }
     

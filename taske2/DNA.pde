@@ -5,24 +5,24 @@ class DNA {
   int[] genes;
   float fitness, maxvalue, v;
   ArrayList<Item> possibleItems = new ArrayList<Item>();
-  float maxValue = 0;
+  float maxValue = 1432;
 
   DNA() {
     genes = new int[24];
     for (int i = 0; i < json.size(); i++) {
       genes[i] = int(random(0, 2));
     }
-    if(n > 0){
-      for (int i = 0; i < n; i++)
+    //println(counter);
+    if(counter > 0){
+      for (int i = 0; i < counter; i++){
       genes = append(genes, int(random(0, 2)));
+     }
     }
-   // println(" ");
-    //println("length:");
-    //println(genes.length);
+    
     if(restart){
       //genes = expand(genes, 1);
-      
     }
+    
     //println("genes:");
     //println(genes);
     
@@ -35,10 +35,24 @@ class DNA {
 
       possibleItems.add(new Item(weight, price, name));
     }
+    if(counter > 0){
+      for (int i = 0; i < counter; i++){
+      possibleItems.add(new Item(parseInt(additem.newitemw[i]), parseInt(additem.newitemv[i]), additem.newitemname[i]));
+      maxValue = maxValue + parseInt(additem.newitemv[i]);
+     }
+    }
     if(restart){
-      possibleItems.add(new Item(parseInt(additem.newitemw), parseInt(additem.newitemv), additem.newitemname));
-      println(possibleItems.get(possibleItems.size()-1).name, possibleItems.get(possibleItems.size()-1).price, possibleItems.get(possibleItems.size()-1).weight);
-      println(possibleItems.size());
+      //possibleItems.add(new Item(parseInt(additem.newitemw), parseInt(additem.newitemv), additem.newitemname));
+      //println(possibleItems.get(possibleItems.size()-1).name, possibleItems.get(possibleItems.size()-1).price, possibleItems.get(possibleItems.size()-1).weight);
+      //println(possibleItems.size());
+      //println("length:");
+      //println(genes.length);
+      if(genes.length == possibleItems.size()){
+        //println("villads kan tælle");
+      } else {
+        //println("næ");
+      }
+      
     }
   }
 
@@ -48,12 +62,13 @@ class DNA {
     
     for(int i = 0; i < genes.length; i++) {
       if (genes[i] == 1) {
+        //println(possibleItems.get(i).price);
         value += possibleItems.get(i).price;
         weight += possibleItems.get(i).weight;
       }
     }
     
-    v = value/1432;
+    v = value/maxValue;
     if (weight < 5000){
       fitness = pow(v,2);
     } else {
@@ -88,4 +103,15 @@ class DNA {
     return child;
   }
 
+  String allPhrases() {
+    String everything = "";
+    
+    int displayLimit = min(population.length,50);
+    
+    
+    for (int i = 0; i < displayLimit; i++) {
+      everything += fitness + "\n";
+    }
+    return everything;
+   }
 }
