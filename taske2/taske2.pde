@@ -19,7 +19,7 @@ String everything = "";
 
 int bestBag = 0;
 int startTime = 0;
-int counter = 0;
+int n = 0;
 
 boolean stop = false;
 boolean possibleBest = false;
@@ -32,7 +32,7 @@ void setup() {
   size(640, 360);
   f = createFont("Courier", 32, true);
 
-  populationsize = 1000;
+  populationsize = 250;
   population = new DNA[populationsize];
 
   for (int i = 0; i < population.length; i++) {
@@ -44,7 +44,7 @@ void setup() {
 }
 
 void draw() {
-  if (restart) {
+if(restart){
     additemrestart();
   }
 if(!restart){
@@ -53,7 +53,7 @@ if(!restart){
     additem.display();
     additem.knap();
     ui.showGraph();
-
+    
     for (int i = 0; i < population.length; i++) {
       population[i].fitness();
       //println(population[i].fitness, population[i].value, population[i].weight);
@@ -64,7 +64,7 @@ if(!restart){
         bestWeight = population[i].weight;
         bestTime = millis()-startTime;
         bestIteration = iteration;
-
+            
         for (int u = 0; u < 24; u++) {
           if (population[i].genes[u] == 1) {
             everything += population[i].possibleItems.get(u).name + "\n";
@@ -76,45 +76,52 @@ if(!restart){
         //println(maxFitness, population[i].value, population[i].weight, mutations, iteration);
       }
 
+<<<<<<< HEAD
         if (iteration > bestIteration + 198) {
           bestFound = true;
           possibleBest = false;
         }
+=======
+      /*if (iteration > bestIteration + 198) {
+       stop = true;
+       possibleBest = false;
+       }*/
+>>>>>>> parent of be60bbe... Merge branch 'master' of https://github.com/falcken/taske
 
-        if (iteration > bestIteration + 48) {
-          possibleBest = true;
-        } else {
-          possibleBest = false;
-        }
+      if (iteration > bestIteration + 48) {
+        possibleBest = true;
+      } else {
+        possibleBest = false;
       }
-
-
-      ArrayList<DNA> matingPool = new ArrayList<DNA>();
-
-      for (int i = 0; i < population.length; i++) {
-        int n = int(population[i].fitness * 100);
-        for (int j = 0; j < n; j++) {
-          matingPool.add(population[i]);
-        }
-      }
-
-      for (int i = 0; i < population.length; i++) {
-        int a = int(random(matingPool.size()));
-        int b = int(random(matingPool.size()));
-
-        DNA partnerA = matingPool.get(a);
-        DNA partnerB = matingPool.get(b);
-
-        DNA child = partnerA.crossover(partnerB);
-
-        child.mutate(mutationRate);
-
-        population[i] = child;
-      }
-
-      iteration++;
     }
+
+
+    ArrayList<DNA> matingPool = new ArrayList<DNA>();
+
+    for (int i = 0; i < population.length; i++) {
+      int n = int(population[i].fitness * 100);
+      for (int j = 0; j < n; j++) {
+        matingPool.add(population[i]);
+      }
+    }
+
+    for (int i = 0; i < population.length; i++) {
+      int a = int(random(matingPool.size()));
+      int b = int(random(matingPool.size()));
+
+      DNA partnerA = matingPool.get(a);
+      DNA partnerB = matingPool.get(b);
+
+      DNA child = partnerA.crossover(partnerB);
+
+      child.mutate(mutationRate);
+
+      population[i] = child;
+    }
+
+    iteration++;
   }
+}
 }
 void keyPressed() {
   println("key: " + key + " keyCode: "+keyCode);
@@ -209,12 +216,13 @@ void displayInfo() {
   text("mutation rate:         " + (mutationRate * 100) + "%", 20, 220);
 }
 
-void additemrestart() {
+void additemrestart(){
   population = null;
   population = new DNA[populationsize];
   for (int i = 0; i < population.length; i++) {
     population[i] = new DNA();
     population[i].fitness();
+    //println(i);
   }
   maxFitness = 0;
   bestValue = 0;
@@ -222,7 +230,6 @@ void additemrestart() {
   bestBag = 0;
   bestIteration = 0;
   iteration = 0;
-  startTime = millis();
   restart = false;
   //println(child.genes);
 }
