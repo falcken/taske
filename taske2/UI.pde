@@ -20,11 +20,13 @@ class UI {
     float mappedBest = map(maxFitness, 0, 0.67, 0, 100);
     //println(bestValue, mappedBest);
 
-    for (int i = 0; i < buffer.length; i++) {
-      if (i < buffer.length-1) {
-        buffer[i] = buffer[i+1];
-      } else {
-        buffer[i] = mappedBest;
+    if (!foundBest) {
+      for (int i = 0; i < buffer.length; i++) {
+        if (i < buffer.length-1) {
+          buffer[i] = buffer[i+1];
+        } else {
+          buffer[i] = mappedBest;
+        }
       }
     }
     
